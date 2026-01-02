@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <limits.h>
 
 void* requestSpace(size_t size);
 void splitBlock(BlockHeader* block, size_t size);
@@ -101,6 +102,24 @@ void* my_malloc(size_t size)
     }
 
     return (block+1);
+}
+
+void* my_calloc(size_t n, size_t size)
+{
+    if (n == 0 || size == 0)
+        return NULL;
+
+    if (size != 0 && n > SIZE_MAX / size)
+        return NULL;
+
+    size_t total_size = n * size;
+
+    void* ptr = my_malloc(total_size);
+    if (!ptr)
+        return NULL;
+
+    memset(ptr, 0, total_size);
+    return ptr;
 }
 
 
