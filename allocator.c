@@ -39,7 +39,7 @@ BlockHeader* get_from_bin(size_t size)
 {
     int index = get_bin_index(size);
 
-    for(int i=0; i<NUM_BINS; i++)
+    for(int i=index; i<NUM_BINS; i++)
     {
         BlockHeader* curr = BINS[i];
         BlockHeader* prev = NULL;
@@ -50,7 +50,8 @@ BlockHeader* get_from_bin(size_t size)
             {
                 if(prev) prev->next = curr->next;
                 else BINS[i] = curr->next;
-
+                
+                curr->free = 0;
                 curr->next = NULL;
                 return curr;
             }
@@ -61,6 +62,25 @@ BlockHeader* get_from_bin(size_t size)
     }
 
     return NULL;
+}
+
+void rebuild_bins()
+{
+    for(int i=0; i<NUM_BINS; i++)
+    {
+        BINS[i] = NULL;
+    }
+    
+    BlockHeader* curr = head;
+    while(curr)
+    {
+        if(curr->free)
+        {
+            insert_into_bin(curr);
+            curr= curr->next;
+        }
+    }
+
 }
 
 void* my_malloc(size_t size)
@@ -137,6 +157,7 @@ void my_free(void* ptr)
     header->free = 1;
     printf("Freed memory at address %p (block size = %zu bytes)\n", ptr, header->size);
     coalesce();
+    rebuild_bins();
 }
 
 void* my_realloc(void* ptr, size_t new_size)
