@@ -1,6 +1,10 @@
 #ifndef ALLOCATOR_H
 #define ALLOCATOR_H
 
+#ifndef SIZE_MAX
+#define SIZE_MAX ((size_t)-1)
+#endif
+
 #include <stddef.h>
 
 /* ===== Block metadata ===== */
