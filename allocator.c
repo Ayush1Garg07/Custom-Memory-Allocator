@@ -31,7 +31,7 @@ int get_bin_index(size_t size)
 void insert_into_bin(BlockHeader* block)
 { 
     int index = get_bin_index(block->size);
-    block->next = BINS[index];
+    block->next_free = BINS[index];
     BINS[index] = block;
 }
 
@@ -48,16 +48,16 @@ BlockHeader* get_from_bin(size_t size)
         {
             if(curr->free && curr->size >= size)
             {
-                if(prev) prev->next = curr->next;
-                else BINS[i] = curr->next;
+                if(prev) prev->next_free = curr->next_free;
+                else BINS[i] = curr->next_free;
                 
+                curr->next_free = NULL;
                 curr->free = 0;
-                curr->next = NULL;
                 return curr;
             }
 
             prev = curr;
-            curr = curr->next; 
+            curr = curr->next_free; 
         }
     }
 
@@ -74,11 +74,10 @@ void rebuild_bins()
     BlockHeader* curr = head;
     while(curr)
     {
-        if(curr->free)
-        {
-            insert_into_bin(curr);
-            curr= curr->next;
-        }
+        curr->next_free = NULL;
+        if(curr->free) insert_into_bin(curr);
+
+        curr= curr->next;
     }
 
 }
