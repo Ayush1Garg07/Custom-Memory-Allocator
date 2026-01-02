@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include "allocator.h"
 
-int main() {
-    int *x = my_malloc(sizeof(int));
-    *x = 50;
-
-    printf("Value: %d\n", *x);
-
-    my_free(x);
+int main()
+{
+    void* a = my_malloc(100);
+    void* b = my_malloc(200);
+    my_free(a);
+    my_free(b);
+    void* c = my_malloc(150);
+    my_free(c);
     return 0;
 }
+
