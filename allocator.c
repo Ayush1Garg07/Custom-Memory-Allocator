@@ -194,6 +194,29 @@ void* my_realloc(void* ptr, size_t new_size)
     my_free(ptr);
 
     return new_ptr; 
-    
 }
+
+void print_heap()
+{
+    BlockHeader* curr = head;
+    int index = 0;
+
+    printf("\n=========Heap Layout============\n");
+
+    while (curr)
+    {
+        printf("Block %d:\n", index);
+        printf("  Address     : %p\n", (void*)curr);
+        printf("  User ptr    : %p\n", (void*)(curr + 1));
+        printf("  Size        : %zu bytes\n", curr->size);
+        printf("  Status      : %s\n", curr->free ? "FREE" : "USED");
+        printf("  Next (heap) : %p\n\n", (void*)curr->next);
+
+        curr = curr->next;
+        index++;
+    }
+
+    printf("=================================\n");
+}
+
 
