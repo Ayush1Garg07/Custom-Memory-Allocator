@@ -250,7 +250,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Ayush Garg**
 
 - GitHub: [@Ayush1Garg07](https://github.com/Ayush1Garg07)
-- LinkedIn: [Connect with me](https://linkedin.com/in/your-profile) <!-- Add your LinkedIn -->
+- LinkedIn: [Connect with me](https://linkedin.com/in/ayush-garg-34896228a) <!-- Add your LinkedIn -->
 
 ## 🙏 Acknowledgments
 
