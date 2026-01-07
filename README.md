@@ -16,7 +16,7 @@
 
 ## 🎯 Overview
 
-This project implements a custom memory allocator from scratch in C, providing an efficient alternative to standard `malloc()` and `free()`. By managing memory blocks manually, this allocator achieves better performance and reduced fragmentation for specific use cases.
+This project implements a custom memory allocator from scratch in C, providing an efficient alternative to standard `malloc()`, `calloc()`, `realloc()` and `free()`. By managing memory blocks manually, this allocator achieves better performance and reduced fragmentation for specific use cases.
 
 ### Key Highlights
 - **Custom block management** with metadata tracking
