@@ -1,8 +1,11 @@
-#include "allocator.h"
+#define _DEFAULT_SOURCE
+
+#include "../include/allocator.h"
 #include <stdlib.h>
 
 #ifdef __linux__
 #include <unistd.h>   // for sbrk
+#include <sys/types.h>
 #endif
 
 extern BlockHeader* head;
