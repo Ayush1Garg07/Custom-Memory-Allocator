@@ -1,27 +1,23 @@
-CC      = gcc
-CFLAGS  = -Wall -Wextra -g -std=c11
+CC = gcc
+CFLAGS = -Wall -Wextra -g -std=c11 -Iinclude
 
-TARGET  = allocator_test
+TARGET = allocator_test
 
-SRCS    = allocator.c block.c test.c
-OBJS    = $(SRCS:.c=.o)
-OBJS    := $(addprefix obj/, $(OBJS))
+SRC = src/allocator.c src/block.c src/test.c
+OBJ = $(SRC:src/%.c=obj/%.o)
 
 all: $(TARGET)
 
-$(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $(OBJS)
+$(TARGET): $(OBJ)
+	$(CC) $(CFLAGS) $^ -o $@
 
-obj/%.o: %.c allocator.h
+obj/%.o: src/%.c include/allocator.h
 	@mkdir -p obj
 	$(CC) $(CFLAGS) -c $< -o $@
-
-run: $(TARGET)
-	./$(TARGET)
 
 clean:
 	rm -rf obj $(TARGET)
 
 rebuild: clean all
 
-.PHONY: all clean run rebuild
+.PHONY: all clean rebuild
