@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "allocator.h"
+#include "../include/allocator.h"
 
 int main()
 {
@@ -13,7 +13,8 @@ int main()
     my_free(b);
     print_heap();
 
-    void* c = my_malloc(150);
+    void* c = my_malloc(150);  //We used void in c variable because we are telling compiler that intentionally 
+    (void)c;                   //we didn't used this variable
     print_heap();
 }
 
